@@ -11,6 +11,7 @@
 package main
 
 import (
+	"pkg.safego.dev/bsp/arm/mps2/uart"
 	"pkg.safego.dev/rt/sync"
 	"pkg.safego.dev/rt/time"
 )
@@ -153,13 +154,15 @@ func control() {
 // task loop: the task always yields, so a lower-priority task can run.
 func actuate() {
 	for c := range commands {
-		// The command goes out of the UART, one byte at a time, through the driver in
-		// driver.go. The write does not wait: a driver that spun here would hold this
-		// task's priority for as long as the peripheral felt like taking.
+		// The command goes out of the UART, one byte at a time, through the board's own
+		// driver. TryWrite does not wait: a write that spun here would hold this task's
+		// priority for as long as the peripheral felt like taking, which is a timing
+		// property no analysis could bound. That is the whole reason hal/uart separates
+		// TryWriter from UART — the loop asks, and decides for itself what a refusal means.
 		// The command is clamped to the configured range, so its low byte is the whole of
 		// it. Narrowing is written out because SafeGo requires it to be: a conversion that
 		// can lose information is never implicit (§2.2.1).
-		if !uartTryWrite(uint8(c & 0xFF)) {
+		if !uart.UART0.TryWrite(byte(c & 0xFF)) {
 			dropped++
 		}
 	}
@@ -201,7 +204,7 @@ func main() {
 	// main returns. Writing shared state after a spawn would race on one and not the
 	// other, so the ordering rule removes the difference rather than documenting it.
 
-	uartInit()
+	uart.Init()
 
 	//safego:task prio=5 stack=1024
 	go control()
