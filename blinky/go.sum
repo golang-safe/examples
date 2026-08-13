@@ -1,4 +1,4 @@
-pkg.safego.dev/hal v0.0.0-20260813121838-0c59a23c8aaa h1:6pfd5q9FcueSQyGLnX3H7N8/fiQEi1jNHX41ce5w69k=
-pkg.safego.dev/hal v0.0.0-20260813121838-0c59a23c8aaa/go.mod h1:7/ucqaAW7YORd585dWhZCgVrReBt4jWb/gcrGaC7Mu0=
+pkg.safego.dev/hal v0.0.0-20260813134910-661b7de7f7f2 h1:0GSuu7y4+5BWf94NG4iAEkZZaNKW3ren+2E5mIQUF3k=
+pkg.safego.dev/hal v0.0.0-20260813134910-661b7de7f7f2/go.mod h1:7/ucqaAW7YORd585dWhZCgVrReBt4jWb/gcrGaC7Mu0=
 pkg.safego.dev/rt v0.0.0-20260810093946-29f8792115d6 h1:25LUXFTpkDzd57PXAUluvtiOL762pHv4v0Dz+k1/Z2g=
 pkg.safego.dev/rt v0.0.0-20260810093946-29f8792115d6/go.mod h1:PnvKJNjyaqpmalMYawYCpqQqdF3HDetWyO7a3wueQ8A=
