@@ -1,0 +1,30 @@
+# This example's own manifest. pico2 is not one of the compiler's embedded targets (Spec 013
+# moved every unverified board port out of the binary), so unlike ../blinky's bare
+# `--target cortex-m3` this project must name its BSP explicitly, by a project-local path.
+#
+# The BSP lives in its own repository now (sdk-bsp-raspberrypi, extracted out of safego per
+# TODO.md's board-port-distribution follow-up), not inside safego/ports/ any more.
+
+version: 1
+
+targets:
+  pico2:
+    cpu: "cortex-m33"
+    fpu: "single"
+    bsp: "../../sdk-bsp-raspberrypi/pico2"
+
+    prio_max: 32
+    interrupt_nesting: 2
+
+    stacks:
+      handler_bytes: 4096
+      thread_bytes: 4096
+
+    toolchain:
+      cc: "arm-none-eabi-gcc"
+      placement: '__attribute__((section("{section}"), aligned({align}), used))'
+      cflags:
+        - "-mcpu=cortex-m33"
+        - "-mthumb"
+        - "-mfloat-abi=hard"
+        - "-mfpu=fpv5-sp-d16"
